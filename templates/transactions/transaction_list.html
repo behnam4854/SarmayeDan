@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <title>سرمایه بان || داشبورد</title>
+  
+  {% comment %} <link rel="stylesheet" href="styles.css"> {% endcomment %}
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <script src="{% static 'js/persian-datepicker.js' %}"></script>
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+
+</head>
+
+<body>
+
+  <!-- Main content -->
+  <main class="sb-main-dashboard">
+      <!-- Navigation bar -->
+    <nav>
+      <div class="nav__brand">
+        <img src="../static/imgs/logo.png" class="nav__brand-img" alt="">
+      </div>
+      <ul class="nav__main">
+        <li><a href="#">پروفایل</a></li>
+        <li><a href="#">تراکنش ها</a></li> 
+        <li><a href="#">پس انداز ها</a></li>
+      </ul>
+      <ul class="nav__footer">
+        <li><a href="#">خروج</a></li>
+      </ul>
+    </nav>
+
+    <!-- Features section -->
+    <section class="features">
+      <p class="feature--head">بهنام امینی ساردویی</p>
+      <div class="feature feature--1">
+        <div class="budget">
+          <p class="budget-title">بودجه</p>
+          <p class="budget-title">5000000000000 تومان</p>
+        </div>
+        <div class="budget">
+          <p class="budget-title">بودجه</p>
+          <p class="budget-title">50000 تومان</p>
+        </div>
+        <div class="budget">
+          <p class="budget-title">بودجه</p>
+          <p class="budget-title">50000000 تومان</p>
+        </div>
+      </div>
+
+      <div class="feature feature--2">
+        <!-- <img src="tracker.png">   -->
+        <p>تراکنش های اخیر</p>
+        <hr class="feature--line">
+        <br>
+        <ul class="trans-list">
+          {% for transaction in transactions %}
+            <li>
+              <p>{{ transaction.amount }} <span>تومان</span></p>
+              <p>{{ transaction.description }}</p>
+            </li>
+            <hr>
+          {% endfor %}
+        <p class="trans-more">111ادامه</p>
+      </div>
+
+      <div class="feature feature--3">
+        <p>خرید جدید</p>
+        <form action = "" method = "POST">
+          {% csrf_token %}
+          {{ form.non_field_errors }}
+          <div class="fieldWrapper">
+              {{ form.amount.errors }}
+              <label for="{{ form.amount.id_for_label }}">مبلغ خرید</label>
+              {{ form.amount }}
+          </div>
+          <div class="fieldWrapper">
+              {{ form.description.errors }}
+              <label for="{{ form.description.id_for_label }}">دسته بندی</label>
+              {{ form.description }}
+          </div>
+          <input type="submit" value="ثبت">
+        </form>
+      </div>
+      <div class="feature feature--4">
+        <form action="" method="post" class="sb-form sb-form__budget">
+          {% comment %} {% csrf_token %}
+          {{ form }}
+          <input type="submit" value="ثبت"> {% endcomment %}
+          {% comment %} {% csrf_token %}
+          {{ form.non_field_errors }}
+          <div class="fieldWrapper">
+              {{ form.BudgetName.errors }}
+              <label for="{{ form.BudgetName.id_for_label }}">نام بودجه</label>
+              {{ form.BudgetName }}
+          </div>
+          <div class="fieldWrapper">
+              {{ form.BudgetAmount.errors }}
+              <label for="{{ form.BudgetAmount.id_for_label }}">مقدار بودجه</label>
+              {{ form.BudgetAmount }}
+          </div>
+          <div class="fieldWrapper">
+              {{ form.BudgetGoal.errors }}
+              <label for="{{ form.BudgetGoal.id_for_label }}">هدف مالی</label>
+              {{ form.BudgetGoal }}
+          </div>
+          <input type="submit" value="ثبت"> {% endcomment %}
+      </form>
+      </div>
+
+    </section>
+
+  </main>
+  
+  <!-- Page footer -->
+  <footer>
+    <p>&copy; سرمایه بان 1402</p>  
+    <script>
+      new PersianDatepicker(document.getElementById("transaction_date")); 
+    </script>
+  </footer>
+
+</body>
+</html>
