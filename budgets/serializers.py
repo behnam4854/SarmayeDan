@@ -25,8 +25,13 @@ class addBugegetSerializer(serializers.ModelSerializer):
 
 class AddBudgetCatgs(serializers.ModelSerializer):
     """for adding budget categories to use in spendings"""
+    budget_name = serializers.CharField(source='budget.name', read_only=True)
+    remaining_budget = serializers.SerializerMethodField()
 
     class Meta:
         model = BudgetCategory
-        fields = '__all__'
+        fields = ['id', 'name', 'allocated', 'spent', 'budget_name', 'remaining_budget']
+
+    def get_remaining_budget(self, obj):
+        return int(obj.allocated - obj.spent)
 
