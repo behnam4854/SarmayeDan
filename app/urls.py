@@ -32,7 +32,7 @@ urlpatterns = [
     path('api/token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('users/',include('accounts.urls')),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path("transactions/", include("transactions.urls")),
+    path("plot/", include("transactions.urls")),
 
 ]
 if settings.DEBUG:

@@ -4,8 +4,12 @@
 import pandas as pd
 from .models import Transaction
 
+from django.shortcuts import render
 import matplotlib.pyplot as plt
 import io
+import base64
+import urllib.parse
+
 from django.http import HttpResponse
 
 def analyze_data():
@@ -15,18 +19,5 @@ def analyze_data():
     summery = df.describe()
     return summery
 
-def plot_data():
-    """plot the data that we get from analyzing our data"""
-    plt.figure(figsize=(10, 6))
-    plt.plot([1, 2, 3, 4], [10, 20, 25, 30])
-    plt.title('Budget Plot')
 
-    # Save the plot to a BytesIO object
-    buf = io.BytesIO()
-    plt.savefig(buf, format='png')
-    plt.close()
-    buf.seek(0)
-
-    # Return as an HTTP response
-    return HttpResponse(buf, content_type='image/png')
 
